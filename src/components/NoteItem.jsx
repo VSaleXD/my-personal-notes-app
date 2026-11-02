@@ -1,45 +1,39 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { showFormattedDate } from '../utils';
+import NoteActionButton from './NoteActionButton';
+import { cardSoundProps } from '../utils/sound';
 
-function NoteItem({ note, onDelete, onArchive }) {
+function highlightText(text, keyword) {
+  if (!keyword.trim()) return text;
+  const escapedKeyword = keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const parts = text.split(new RegExp(`(${escapedKeyword})`, 'gi'));
+  return parts.map((part, index) => (
+    part.toLowerCase() === keyword.toLowerCase()
+      ? <mark key={`${part}-${index}`}>{part}</mark>
+      : part
+  ));
+}
+
+function NoteItem({ note, onDelete, onArchive, searchKeyword = '' }) {
   return (
-    <div
-      className="note-item"
-      data-testid="note-item"
-      data-note-id={note?.id}
-    >
-      <div className="note-item__content" data-testid="note-item-content">
-        {/* TODO [Basic] tampilkan judul catatan menggunakan note.title */}
-        {/* TODO [Advanced] sorot kata kunci pencarian dalam judul menggunakan elemen <mark>. */}
+    <article className="note-item" data-testid="note-item" data-note-id={note?.id}>
+      <Link className="note-item__content" to={`/notes/${note.id}`} {...cardSoundProps()}>
+        <span className="note-item__number">#{String(note.id).slice(-3)}</span>
         <h3 className="note-item__title" data-testid="note-item-title">
-          Judul catatan
+          {highlightText(note.title, searchKeyword)}
         </h3>
-        {/* TODO [Basic] gunakan util showFormattedDate untuk menampilkan tanggal dibuat. */}
-        <p className="note-item__date" data-testid="note-item-date">
-          {new Date().toISOString()}
-        </p>
-        {/* TODO [Basic] tampilkan isi catatan dari note.body */}
-        {/* TODO [Advanced] sorot kata kunci pencarian dalam isi menggunakan elemen <mark>. */}
-        <p className="note-item__body" data-testid="note-item-body">
-          Isi catatan muncul di sini.
-        </p>
-      </div>
+        <p className="note-item__date" data-testid="note-item-date">{showFormattedDate(note.createdAt)}</p>
+        <p className="note-item__body" data-testid="note-item-body">{highlightText(note.body, searchKeyword)}</p>
+        <span className="note-item__read-more">Baca catatan →</span>
+      </Link>
       <div className="note-item__action" data-testid="note-item-action">
-        {/* TODO [Skilled] pecah tombol aksi menjadi komponen terpisah bernama `NoteActionButton` dengan menerima props `variant` dan `onClick` */}
-        <button
-          className="note-item__delete-button"
-          type="button"
-          // TODO [Basic] panggil onDelete dengan id catatan.
-          onClick={() => console.warn('[TODO] Delete note', note.id)}
-          data-testid="note-item-delete-button"
-        >
-          Delete
-        </button>
-
-        {/* TODO [Advanced] implementasikan tombol arsip untuk fitur mengarsipkan catatan */}
+        <NoteActionButton variant="delete" onClick={() => onDelete(note.id)} data-testid="note-item-delete-button" />
+        <NoteActionButton variant="archive" onClick={() => onArchive(note.id)} data-testid="note-item-archive-button" archived={note.archived} />
       </div>
-    </div>
+    </article>
   );
 }
 
 export default NoteItem;
+export { highlightText };
