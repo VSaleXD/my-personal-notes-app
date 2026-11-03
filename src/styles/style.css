@@ -13,6 +13,10 @@
   background: var(--paper);
 }
 
+:root[data-theme='dark'] { --ink: #f5f1e8; --paper: #202225; --yellow: #f8d34f; --coral: #ff806b; --blue: #70bde8; --green: #83b55e; }
+:root[data-theme='dark'] .site-header, :root[data-theme='dark'] .note-item, :root[data-theme='dark'] .note-detail, :root[data-theme='dark'] .notes-list__empty-message { background: #2a2d31; }
+:root[data-theme='dark'] input, :root[data-theme='dark'] textarea { color: var(--ink); background: #363a40; }
+
 * { box-sizing: border-box; }
 body { margin: 0; background: var(--paper); }
 button, input, textarea { font: inherit; }
@@ -28,11 +32,40 @@ a { color: inherit; text-decoration: none; }
 .main-nav__link.active { border: 2px solid var(--ink); background: white; box-shadow: 3px 3px 0 var(--ink); }
 .main-nav__link span { display: inline-block; margin-left: 4px; font-family: 'DM Mono', monospace; font-size: 11px; }
 .button { display: inline-block; padding: 12px 18px; border: var(--line); box-shadow: 4px 4px 0 var(--ink); cursor: pointer; font-weight: 700; transition: transform .12s, box-shadow .12s; }
+.button--small { padding: 7px 10px; font-size: 11px; box-shadow: 3px 3px 0 var(--ink); }
 .button:hover { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--ink); }
 .button--yellow { background: var(--yellow); }
 .button--coral { background: var(--coral); }
 .button--blue { background: var(--blue); }
 .page-shell { width: min(1120px, 90%); margin: 0 auto; padding: 72px 0 100px; }
+.header-tools { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+.loading-state { padding: 80px 5vw; font-family: 'DM Mono', monospace; text-align: center; }
+.auth-page { display: grid; min-height: 100vh; place-items: center; padding: 30px; background: radial-gradient(#d9d2c3 1px, transparent 1px) 0 0 / 20px 20px; }
+.auth-panel { width: min(560px, 100%); padding: clamp(25px, 6vw, 65px); border: var(--line); background: var(--paper); box-shadow: 9px 9px 0 var(--ink); }
+.auth-panel h1 { margin: 0; font-size: clamp(42px, 8vw, 76px); line-height: .92; letter-spacing: -.08em; }
+.auth-form { display: flex; flex-direction: column; gap: 12px; margin-top: 30px; }
+.auth-form input { padding: 14px; border: var(--line); outline: 0; background: white; }
+.auth-form input:focus { background: var(--green); }
+.auth-form__feedback { margin: 0; color: #a51e14; font-size: 13px; }
+.auth-switch { margin-top: 22px; padding: 0; border: 0; border-bottom: 2px solid currentColor; background: transparent; cursor: pointer; font-weight: 700; }
+.landing-page { min-height: 100vh; padding: 24px 5vw 30px; background: radial-gradient(#d9d2c3 1px, transparent 1px) 0 0 / 20px 20px; }
+.landing-nav { display: flex; align-items: center; justify-content: space-between; gap: 20px; max-width: 1280px; margin: 0 auto; }
+.landing-nav__actions { display: flex; align-items: center; gap: 8px; }
+.landing-hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(320px, .75fr); align-items: center; gap: clamp(35px, 8vw, 120px); max-width: 1280px; min-height: calc(100vh - 150px); margin: 0 auto; padding: 55px 0; }
+.landing-hero__copy h1 { max-width: 780px; margin: 0; font-size: clamp(48px, 8vw, 105px); line-height: .88; letter-spacing: -.08em; }
+.landing-hero__copy h1 em { color: var(--coral); font-style: normal; }
+.landing-hero__copy > p:not(.eyebrow) { max-width: 510px; margin: 28px 0 0; font-size: 19px; line-height: 1.5; }
+.landing-hero__actions { display: flex; align-items: center; flex-wrap: wrap; gap: 22px; margin-top: 36px; }
+.landing-external-link { border-bottom: 2px solid currentColor; font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 500; }
+.landing-hero__visual { min-height: 390px; padding: 10px; border: var(--line); background: var(--ink); box-shadow: 10px 10px 0 var(--coral); transform: rotate(2deg); }
+.landing-hero__window-bar { display: flex; gap: 6px; padding: 5px 3px 12px; }
+.landing-hero__window-bar span { width: 10px; height: 10px; border-radius: 50%; background: var(--yellow); }
+.landing-hero__window-content { display: flex; min-height: 345px; flex-direction: column; justify-content: space-between; padding: clamp(24px, 5vw, 55px) 24px 24px; background: linear-gradient(135deg, #30363c, #111); color: white; }
+.landing-hero__window-content p { margin: 0; color: var(--yellow); font-family: 'DM Mono', monospace; font-size: 11px; }
+.landing-hero__window-content strong { font-size: clamp(42px, 6vw, 78px); line-height: .83; letter-spacing: -.08em; }
+.landing-hero__window-content b { color: var(--yellow); }
+.landing-hero__window-content a { align-self: flex-start; padding: 10px 12px; border: 2px solid white; font-family: 'DM Mono', monospace; font-size: 11px; }
+.landing-footer { display: flex; justify-content: space-between; gap: 20px; max-width: 1280px; margin: 0 auto; padding-top: 18px; border-top: 2px solid var(--ink); font-family: 'DM Mono', monospace; font-size: 10px; }
 .page-intro { display: flex; align-items: flex-start; justify-content: space-between; gap: 40px; margin-bottom: 55px; }
 .eyebrow { margin: 0 0 10px; font-family: 'DM Mono', monospace; font-size: 12px; text-transform: uppercase; letter-spacing: .12em; }
 .page-intro h1, .new-note-layout h1, .not-found h1 { max-width: 680px; margin: 0; font-size: clamp(44px, 8vw, 88px); line-height: .9; letter-spacing: -.08em; }
@@ -88,10 +121,16 @@ a { color: inherit; text-decoration: none; }
   .site-header { flex-wrap: wrap; gap: 14px; }
   .main-nav { order: 3; width: 100%; }
   .header-action { margin-left: auto; }
+  .header-tools { width: 100%; margin-left: 0; flex-wrap: wrap; }
   .page-shell { padding-top: 45px; }
   .page-intro { display: block; }
   .page-intro__sticker { display: inline-block; margin: 35px 0 0 20px; }
   .toolbar { align-items: flex-start; flex-direction: column; }
   .notes-group__items, .new-note-layout { grid-template-columns: 1fr; }
   .note-detail__topline { align-items: flex-start; flex-direction: column; }
+  .landing-page { padding: 18px 5vw 25px; }
+  .landing-hero { display: block; min-height: auto; padding: 80px 0 55px; }
+  .landing-hero__visual { min-height: 320px; margin: 55px 8px 20px 0; }
+  .landing-hero__window-content { min-height: 275px; }
+  .landing-footer { flex-direction: column; }
 }
